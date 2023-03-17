@@ -1,0 +1,25 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SourceDir>..\</SourceDir>
+    <TargetDir>.\</TargetDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <App1Files Include="$(SourceDir)build_app1\**\*.*"/>
+    <App2Files Include="$(SourceDir)build_app2\**\*.*"/>
+  </ItemGroup>
+
+  <Target Name="CopyApp1Files">
+    <MakeDir Directories="$(TargetDir)app1"/>
+    <Copy SourceFiles="@(App1Files)" DestinationFolder="$(TargetDir)app1\%(RecursiveDir)" />
+  </Target>
+
+  <Target Name="CopyApp2Files">
+    <MakeDir Directories="$(TargetDir)app2"/>
+    <Copy SourceFiles="@(App2Files)" DestinationFolder="$(TargetDir)app2\%(RecursiveDir)" />
+  </Target>
+
+  <Target Name="CopySPAFiles" DependsOnTargets="CopyApp1Files; CopyApp2Files">
+    <Message Text="Fichiers copiés avec succès !" Importance="high" />
+  </Target>
+</Project>
